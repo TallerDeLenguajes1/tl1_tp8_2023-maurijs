@@ -5,13 +5,9 @@ public class Persona
     public string Apellido;
 
     public string DNI;
+    public int Sumatorio { get; set; }
+
     public DateTime FechaDeNacimiento;
-
-    public Persona()
-    {
-
-    }
-
     public Persona(string nombre, string apellido, DateTime fechaDeNacimiento)
     {
         Nombre = nombre;

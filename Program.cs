@@ -1,6 +1,7 @@
 ﻿using EspacioTareas;
 using EspacioPersonas;
 using System;
+using System.IO;
 
 internal class Program
 {
@@ -9,6 +10,10 @@ internal class Program
         //crea una lista de elementos de clase Tarea
         var TareasPendientes = new List<Tarea>();
         var TareasRealizadas = new List<Tarea>();
+
+        DateTime fechaNac = new DateTime(2002, 8, 2);
+        var empleado1 = new Persona("Mauricio", "Suarez", fechaNac);
+
         int CantidadDeTareas, respuesta;
 
         Console.WriteLine("Ingrese la cantidad de tareas");
@@ -50,6 +55,30 @@ internal class Program
         string palabra = Console.ReadLine();
         BusquedaTarea(TareasRealizadas, palabra);
 
+        int horasTrabajadas = 0;
+        string nombreArchivo = "Sumario.txt";
+        foreach (var tarea in TareasRealizadas)
+        {
+            horasTrabajadas += tarea.Duracion;
+        }
+
+        string contenido = empleado1.Nombre + ", " + empleado1.Apellido + "; Horas trabajadas: " + horasTrabajadas;
+        if (File.Exists(nombreArchivo))
+        {
+            // El archivo existe, abrirlo y escribir algo
+            using (StreamWriter sw = File.AppendText(nombreArchivo))
+            {
+                sw.WriteLine(contenido);
+            }
+        }
+        else
+        {
+            // El archivo no existe, crearlo y escribir algo
+            using (StreamWriter sw = File.CreateText(nombreArchivo))
+            {
+                sw.WriteLine(contenido);
+            }
+        }
     }
 
 
