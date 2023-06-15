@@ -23,7 +23,7 @@ public class Tarea
     public Tarea(int Id, int tiempo, string descrip)
     {
         duracion = tiempo;
-        Descripcion = descripcion;
+        Descripcion = descrip;
         TareaID = Id;
     }
 

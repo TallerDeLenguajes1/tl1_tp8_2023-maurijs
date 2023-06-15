@@ -27,7 +27,7 @@ internal class Program
 
         for (int i = 0; i < CantidadDeTareas; i++)
         {
-            Console.WriteLine("Realizo la tarea "+ i + "?\n1-SI\n2-No");
+            Console.WriteLine("Realizo la tarea "+ (i+1) + "?\n1-SI\n2-No");
             if (int.TryParse(Console.ReadLine(), out respuesta))
             {
                 if (respuesta == 1)
@@ -45,13 +45,15 @@ internal class Program
             TareasPendientes.Remove(Tarea);
         }
 
-        Console.WriteLine("Mostrando las tarea pendientes\n");
+        Console.WriteLine("==================Mostrando las tarea pendientes=================\n");
         MostrarTareas(TareasPendientes);
+        Console.WriteLine("=================================================");
         
-        Console.WriteLine("Mostrando las tarea realizadas\n");
+        Console.WriteLine("==================Mostrando las tarea realizadas=================\n");
         MostrarTareas(TareasRealizadas);
+        Console.WriteLine("=================================================");
 
-        Console.WriteLine("Ingrese la descripcion a buscar");
+        Console.WriteLine("Ingrese la descripcion a buscar en la lista de tareas realizadas");
         string palabra = Console.ReadLine();
         BusquedaTarea(TareasRealizadas, palabra);
 
@@ -109,14 +111,13 @@ internal class Program
     //funcion para mostrar tareas
     private static void MostrarTareas(List<Tarea> ListaDeTareas)
     {
-        Console.WriteLine("===================================================");
         foreach (Tarea TareaX in ListaDeTareas)
         {
             Console.WriteLine(TareaX.MostrarTarea());
         }
-        Console.WriteLine("=================================================");
     }
 
+    //Funcion que dado un string y una lista busca los elementos de la lista que contengan ese string
     private static void BusquedaTarea(List<Tarea> ListaDeTareas, string palabra)
     {
         bool respuesta = false;
@@ -126,7 +127,7 @@ internal class Program
             respuesta = ListaDeTareas[i].Descripcion.Contains(palabra);
             if (respuesta)
             {
-                Console.WriteLine("Tarea de ID:"+ListaDeTareas[i].TareaID + " coincide");
+                Console.WriteLine("Tarea de ID:"+ ListaDeTareas[i].TareaID + " coincide");
                 Console.WriteLine(ListaDeTareas[i].MostrarTarea());
             }
             i++;
