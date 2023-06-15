@@ -8,7 +8,7 @@ internal class Program
     private static void Main()
     {
         //crea una lista de elementos de clase Tarea
-        var TareasPendientes = new List<Tarea>();
+        /*var TareasPendientes = new List<Tarea>();
         var TareasRealizadas = new List<Tarea>();
 
         DateTime fechaNac = new DateTime(2002, 8, 2);
@@ -59,12 +59,14 @@ internal class Program
 
         int horasTrabajadas = 0;
         string nombreArchivo = "Sumario.txt";
+
         foreach (var tarea in TareasRealizadas)
         {
             horasTrabajadas += tarea.Duracion;
         }
 
         string contenido = empleado1.Nombre + ", " + empleado1.Apellido + "; Horas trabajadas: " + horasTrabajadas;
+
         if (File.Exists(nombreArchivo))
         {
             // El archivo existe, abrirlo y escribir algo
@@ -73,6 +75,7 @@ internal class Program
                 sw.WriteLine(contenido);
             }
         }
+
         else
         {
             // El archivo no existe, crearlo y escribir algo
@@ -80,9 +83,52 @@ internal class Program
             {
                 sw.WriteLine(contenido);
             }
+        }*/
+
+        Console.WriteLine("Ingrese la ruta de la carpeta:");
+        string folderPath = Console.ReadLine();
+
+        if (Directory.Exists(folderPath))
+        {
+            string[] archivos = Directory.GetFiles(folderPath); //Obtengo los directorios de esa carpeta
+
+            Console.WriteLine("Listado de archivos:");
+            foreach (string dirArchivo in archivos) 
+            {
+                string NombreArchivo = Path.GetFileName(dirArchivo);
+                string extension = Path.GetExtension(dirArchivo);
+
+                Console.WriteLine($"Nombre: {NombreArchivo}, Extensión: {extension}");
+            }
+
+            // Guardar en archivo CSV
+            string archivoCsv = Path.Combine(folderPath, "index.csv");
+            using (StreamWriter writer = new StreamWriter(archivoCsv))
+            {
+                writer.WriteLine("Indice,Nombre,Extensión");
+
+                for (int i = 0; i < archivos.Length; i++)
+                {
+                    string fileName = Path.GetFileName(archivos[i]);
+                    string extension = Path.GetExtension(archivos[i]);
+
+                    writer.WriteLine($"{i + 1},{fileName},{extension}");
+                }
+            }
+
+            Console.WriteLine("Se ha generado el archivo index.csv correctamente.");
         }
+        else
+        {
+            Console.WriteLine("La carpeta ingresada no existe.");
+        }
+
+        Console.ReadLine();
+
+
     }
 
+    //=======================DECLARACION DE FUNCIONES ========================
 
     //funcion para crear Tareas
     private static void CrearTareas(List<Tarea> ListaDeTareas, int CantidadDeTareas)
